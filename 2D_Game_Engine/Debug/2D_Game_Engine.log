@@ -1,0 +1,15 @@
+﻿  Game.cpp
+C:\Users\rafae\source\repos\Game_Engine_CPP\2D_Game_Engine\src\Game\Game.cpp(114,39): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\rafae\source\repos\Game_Engine_CPP\2D_Game_Engine\src\Game\Game.cpp(115,39): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Logger.cpp
+  Main.cpp
+  Generating Code...
+  2D_Game_Engine.vcxproj -> C:\Users\rafae\source\repos\Game_Engine_CPP\Debug\2D_Game_Engine.exe
