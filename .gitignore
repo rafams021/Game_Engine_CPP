@@ -1,17 +1,1 @@
 *.vsidx
-*.lock
-.vs/2D_Game_Engine/v17/.suo
-*.db
-*.db-shm
-*.db-wal
-*.opendb
-*.filters
-*.recipe
-*.ilk
-*.log
-*.lastbuildstate
-*.tlog
-*.obj
-*.idb
-*.pdb
-*.exe
