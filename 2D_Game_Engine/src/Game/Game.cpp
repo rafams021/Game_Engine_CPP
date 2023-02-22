@@ -24,8 +24,8 @@ void Game::Initialize() {
 
 		SDL_DisplayMode displayMode;
 		SDL_GetCurrentDisplayMode(0, &displayMode);
-		windowWidth = 800;
-		windowHeight = 600;
+		windowWidth = displayMode.w;
+		windowHeight = displayMode.h;
 		
 		/*********************************
 		*
@@ -40,7 +40,7 @@ void Game::Initialize() {
 								  windowHeight,
 								  SDL_WINDOW_BORDERLESS);
 		if (!window) {
-			Logger::Log("Error creating SDL window.");
+			Logger::Err("Error creating SDL window.");
 			return;
 		}
 		
@@ -53,7 +53,7 @@ void Game::Initialize() {
 		// Last parameter try to use Hardware Acceleration when possible and VSync to prevent screen tearing
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		if (!renderer) {
-			Logger::Log("Error creating SDL renderer.");
+			Logger::Err("Error creating SDL renderer.");
 			return;
 		}
 
@@ -66,7 +66,7 @@ void Game::Initialize() {
 
 	}
 	else {
-		Logger::Log("Error initializing SDL.");
+		Logger::Err("Error initializing SDL.");
 		return;
 	}
 
@@ -91,13 +91,11 @@ void Game::ProcessInput() {
 	}
 }
 
-glm::vec2 playerPosition;
-glm::vec2 playerVelocity;
 
 void Game::SetUp() {
-	playerPosition = glm::vec2(10.0, 20.0);
-	playerVelocity = glm::vec2(100.0, 0.0);
+	// TODO
 }
+
 
 void Game::Update() {
 	//  If we are too fast, wait until we reach MILLISECS_PER_FRAME
@@ -112,8 +110,7 @@ void Game::Update() {
 	// Store current frame time.
 	millisecsPreviusFrame = SDL_GetTicks();
 
-	playerPosition.x += playerVelocity.x * deltaTime;
-	playerPosition.y += playerVelocity.y * deltaTime;
+	// TODO
 }
 
 void Game::Render() {
@@ -121,19 +118,7 @@ void Game::Render() {
 	SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
 	SDL_RenderClear(renderer);
 
-	// Draw a PNG file..
-	SDL_Surface* surface = IMG_Load("./assets/images/tank-tiger-right.png");
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
-
-	// Destination rectangle that we want to place our texture
-	SDL_Rect dstRect = { static_cast<int> (playerPosition.x), 
-						 static_cast<int> (playerPosition.y),
-										  32, 
-										  32
-	};
-	SDL_RenderCopy(renderer, texture, NULL, &dstRect);
-	SDL_DestroyTexture(texture);
+	// TODO
 
 	SDL_RenderPresent(renderer);
 }

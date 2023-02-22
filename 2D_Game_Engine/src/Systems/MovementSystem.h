@@ -1,34 +1,20 @@
 #ifndef MOVEMENTSYSTEM_H
 #define MOVEMENTSYSTME_H
 
+#include "../ECS/ECS.h"
+
 class MovementSystem : public System
 {
 public:
-	MovementSystem : public System();
-	void Update();
-	~MovementSystem : public System();
+	MovementSystem() {
+		// TODO
+	}
+	void Update() {
+		// TODO
+	}
 
 private:
 
 };
-
-MovementSystem : public System::MovementSystem : public System(){
-	// TODO:
-	// RequiereComponent<TransformComponent();
-	// RequiereComponent<...>();
-}
-
-void Update() {
-	// TODO:
-	// Loop al entities that the system is interested in
-	for (auto& entity : GetEntities()) {
-		// Update entity position based on its velocity
-
-	}
-}
-
-MovementSystem : public System::~MovementSystem : public System(){
-
-}
 
 #endif // !MOVEMENTSYSTEM_H

@@ -1,8 +1,8 @@
 #ifndef ECS_H
 #define ECS_H
 
-#include <bitset>
 #include <vector>
+#include <bitset>
 
 const unsigned int MAX_COMPONENTS = 32;
 
@@ -22,7 +22,7 @@ protected:
 };
 
 // Used to assign a unique id to a componetn type
-template <typename TComponent>
+template <typename T>
 class Component: public IComponent
 {
 	// Returns the unique id of the component<T>
