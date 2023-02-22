@@ -9,12 +9,13 @@
 Game::Game()
 {
 	isRunning = false;
+	registry = std::make_unique<Registry>();
 	Logger::Log("Game Constructor Called!");
 }
 
 Game::~Game()
 {
-	Logger::Log("Game Desstructor Called!");
+	Logger::Log("Game Destructor Called!");
 }
 
 void Game::Initialize() {
@@ -93,7 +94,9 @@ void Game::ProcessInput() {
 
 
 void Game::SetUp() {
-	// TODO
+	// Create some entities
+	Entity tank = registry->createEntity();
+	Entity truck = registry->createEntity();
 }
 
 

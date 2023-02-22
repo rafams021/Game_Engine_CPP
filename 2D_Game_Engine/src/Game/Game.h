@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "../ECS/ECS.h"
 #include <SDL.h>
 
 const int FPS = 60;
@@ -25,6 +26,7 @@ public:
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+	std::unique_ptr<Registry> registry;
 	int millisecsPreviusFrame = 0;
 	bool isRunning;
 };
