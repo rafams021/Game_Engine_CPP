@@ -224,7 +224,7 @@ void Registry::addComponent(Entity entity, TArgs&& ...args) {
 	Pool<TComponent>* componentPool = componentPools[componentId];
 
 	if (entityId >= componentPool->getSizePool()) {
-		componentPool->resizePool(numEntities)
+		componentPool->resizePool(numEntities);
 	}
 
 	TComponent newCompnent(std::forward<TArgs>(args)...);
@@ -237,7 +237,7 @@ void Registry::addComponent(Entity entity, TArgs&& ...args) {
 
 template <typename TComponent>
 void Registry::removeComponent(Entity entity) {
-	const auto componentId = Component<TCompnent>::getComponentId();
+	const auto componentId = Component<TComponent>::getComponentId();
 	const auto entityId = entity.getIdEntity();
 
 	entityComponentSignatures[entityId].set(componentId, false);
@@ -246,7 +246,7 @@ void Registry::removeComponent(Entity entity) {
 
 template<typename TComponent>
 bool Registry::hasComponent(Entity entity) const {
-	const auto componentId = Component<TCompnent>::getComponentId();
+	const auto componentId = Component<TComponent>::getComponentId();
 	const auto entityId = entity.getIdEntity();
 
 	return entityComponentSignatures[entityId].test(componentId);
