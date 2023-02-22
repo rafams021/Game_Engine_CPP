@@ -15,3 +15,5 @@
 *.idb
 *.exe
 *.pdb
+*.bin
+*.ipch
