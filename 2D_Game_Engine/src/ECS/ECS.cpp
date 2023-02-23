@@ -4,7 +4,7 @@
 
 int IComponent::nextId = 0;
 
-int Entity::getIdEntity() const {
+int Entity::getEntityId() const {
 	return id;
 }
 
@@ -51,7 +51,7 @@ Entity Registry::createEntity() {
 
 
 void Registry::addEntityToSystems(Entity entity) {
-	const auto entityId = entity.getIdEntity();
+	const auto entityId = entity.getEntityId();
 
 	const auto& entityComponentSignature = entityComponentSignatures[entityId];
 

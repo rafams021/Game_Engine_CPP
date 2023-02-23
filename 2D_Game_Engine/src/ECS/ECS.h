@@ -46,7 +46,7 @@ class Entity
 public:
 	Entity(int id) : id(id) {};
 	Entity(const Entity& entity) = default;
-	int getIdEntity() const;
+	int getEntityId() const;
 
 	// Operators Overloading
 	Entity& operator =(const Entity& other) = default;
@@ -187,7 +187,7 @@ public:
 	template <typename TSystem, typename ...TArgs> void addSystem(TArgs&& ...args);
 	template <typename TSystem> void removeSystem();
 	template <typename TSystem> bool hasSystem() const;
-	template <typename TSystem> TSystem* getSystem() const;
+	template <typename TSystem> TSystem& getSystem() const;
 
 	// Checks the component signature of an entity and add the entity to the systems
 	// that are interested in it
@@ -258,7 +258,7 @@ void System::requireComponent() {
 template <typename TComponent, typename ...TArgs>
 void Registry::addComponent(Entity entity, TArgs&& ...args) {
 	const auto componentId = Component<TComponent>::getComponentId();
-	const auto entityId = entity.getIdEntity();
+	const auto entityId = entity.getEntityId();
 
 	if (componentId >= static_cast<int>(componentPools.size())) {
 		componentPools.resize(componentId + 1, nullptr);
@@ -288,7 +288,7 @@ void Registry::addComponent(Entity entity, TArgs&& ...args) {
 template <typename TComponent>
 void Registry::removeComponent(Entity entity) {
 	const auto componentId = Component<TComponent>::getComponentId();
-	const auto entityId = entity.getIdEntity();
+	const auto entityId = entity.getEntityId();
 
 	entityComponentSignatures[entityId].set(componentId, false);
 
@@ -299,7 +299,7 @@ void Registry::removeComponent(Entity entity) {
 template<typename TComponent>
 bool Registry::hasComponent(Entity entity) const {
 	const auto componentId = Component<TComponent>::getComponentId();
-	const auto entityId = entity.getIdEntity();
+	const auto entityId = entity.getEntityId();
 
 	return entityComponentSignatures[entityId].test(componentId);
 }
@@ -308,7 +308,7 @@ bool Registry::hasComponent(Entity entity) const {
 template <typename TComponent> 
 TComponent& Registry::getComponent(Entity entity) const {
 	const auto componentId = Component<TComponent>::getComponentId();
-	const auto entityId = entity.getIdEntity();
+	const auto entityId = entity.getEntityId();
 	auto componentPool = std::static_pointer_cast<Pool<TComponent>>(componentPools[componentId]);
 
 	return componentPool->getFromPool(entityId);
@@ -341,7 +341,7 @@ bool Registry::hasSystem() const {
 
 
 template <typename TSystem> 
-TSystem* Registry::getSystem() const {
+TSystem& Registry::getSystem() const {
 	auto system = systems.find(std::type_index(typeid(TSystem)));
 	return *(std::static_pointer_cast<TSystem>(system->second));
 }

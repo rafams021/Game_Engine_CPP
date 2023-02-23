@@ -3,6 +3,7 @@
 #include "../ECS/ECS.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidBodyComponent.h"
+#include "../Systems/MovementSystem.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <glm/glm.hpp>
@@ -96,7 +97,10 @@ void Game::ProcessInput() {
 
 
 void Game::SetUp() {
-	// Create some entities
+	// Add the system that need to be processed in our game
+	registry->addSystem<MovementSystem>();
+
+	// Create an  entities
 	Entity tank = registry->createEntity();
 
 
@@ -122,7 +126,13 @@ void Game::Update() {
 	// Store current frame time.
 	millisecsPreviusFrame = SDL_GetTicks();
 
-	// TODO
+	// Ask all the system to update
+	registry->getSystem<MovementSystem>().updateMovement(deltaTime);
+	// TODO: registry->getSystem<CollisionSystem>()->updateCollision();
+
+	// Update the registry to porcess the entities that are waiting to be created/deleted
+	registry->updateRegistry();
+
 }
 
 void Game::Render() {
