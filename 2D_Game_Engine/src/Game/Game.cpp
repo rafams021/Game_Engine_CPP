@@ -3,7 +3,9 @@
 #include "../ECS/ECS.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidBodyComponent.h"
+#include "../Components/SpriteComponent.h"
 #include "../Systems/MovementSystem.h"
+#include "../Systems/RenderSystem.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <glm/glm.hpp>
@@ -99,17 +101,18 @@ void Game::ProcessInput() {
 void Game::SetUp() {
 	// Add the system that need to be processed in our game
 	registry->addSystem<MovementSystem>();
+	registry->addSystem<RenderSystem>();
 
 	// Create an  entities
 	Entity tank = registry->createEntity();
-
-
-	// Add some components to the entty
 	tank.addComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(1.0, 1.0), 0.0);
-	tank.addComponent<RigidBodyComponent>(glm::vec2(10.0, 50.0));
+	tank.addComponent<RigidBodyComponent>(glm::vec2(40.0, 0.0));
+	tank.addComponent<SpriteComponent>(100, 100);
 
-	// Remove a component from entity
-	tank.removeComponent<TransformComponent>();
+	Entity truck = registry->createEntity();
+	truck.addComponent<TransformComponent>(glm::vec2(50.0, 100.0), glm::vec2(1.0, 1.0), 0.0);
+	truck.addComponent<RigidBodyComponent>(glm::vec2(0.0, 50.0));
+	truck.addComponent<SpriteComponent>(100, 50);
 }
 
 
@@ -126,12 +129,12 @@ void Game::Update() {
 	// Store current frame time.
 	millisecsPreviusFrame = SDL_GetTicks();
 
-	// Ask all the system to update
-	registry->getSystem<MovementSystem>().updateMovement(deltaTime);
-	// TODO: registry->getSystem<CollisionSystem>()->updateCollision();
-
 	// Update the registry to porcess the entities that are waiting to be created/deleted
 	registry->updateRegistry();
+
+	// Invoke all the system that need to be update
+	registry->getSystem<MovementSystem>().updateMovement(deltaTime);
+	// TODO: registry->getSystem<CollisionSystem>()->updateCollision();
 
 }
 
@@ -140,7 +143,8 @@ void Game::Render() {
 	SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
 	SDL_RenderClear(renderer);
 
-	// TODO
+	// Invoke all the system that need to render
+	registry->getSystem<RenderSystem>().updateRender(renderer);
 
 	SDL_RenderPresent(renderer);
 }
