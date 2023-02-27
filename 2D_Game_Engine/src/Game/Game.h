@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "../ECS/ECS.h"
+#include "../AssetManager/AssetManager.h"
 #include <SDL.h>
 
 const int FPS = 60;
@@ -15,6 +16,7 @@ public:
 	void Initialize();
 	void Run();
 	void ProcessInput();
+	void LoadLevel(int level);
 	void SetUp();
 	void Update();
 	void Render();
@@ -27,6 +29,7 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	std::unique_ptr<Registry> registry;
+	std::unique_ptr<AssetManager> assetManager;
 	int millisecsPreviusFrame = 0;
 	bool isRunning;
 };
