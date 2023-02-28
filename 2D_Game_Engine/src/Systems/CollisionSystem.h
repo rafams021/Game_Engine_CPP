@@ -46,6 +46,9 @@ public:
 
 				if (collisionHappened) {
 					Logger::Log("Entity " + std::to_string(entityA.getEntityId()) + " is colliding with entity " + std::to_string(entityB.getEntityId()));
+
+					entityA.deleteEntity();
+					entityB.deleteEntity();
 				}
 			}
 		}
