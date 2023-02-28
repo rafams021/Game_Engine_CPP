@@ -32,6 +32,7 @@ private:
 	std::unique_ptr<AssetManager> assetManager;
 	int millisecsPreviusFrame = 0;
 	bool isRunning;
+	bool isDebug;
 };
 
 #endif // !GAME_H
