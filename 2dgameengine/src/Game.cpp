@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Logger.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <glm/glm.hpp>
@@ -6,16 +7,16 @@
 
 Game::Game() {
     isRunning = false;
-    std::cout << "Game constructor called!" << std::endl;    
+    Logger::Log("Game constructor called!");
 }
 
 Game::~Game() {
-    std::cout << "Game destructor called!" << std::endl;    
+    Logger::Log("Game destructor called!");   
 }
 
 void Game::Initialize() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        std::cerr << "Error initializing SDL." << std::endl;
+        Logger::Err("Error initializing SDL.");
         return;
     }
     SDL_DisplayMode displayMode;
@@ -31,12 +32,12 @@ void Game::Initialize() {
         SDL_WINDOW_BORDERLESS
     );
     if (!window) {
-        std::cerr << "Error creating SDL window." << std::endl;
+        Logger::Err("Error creating SDL window.");
         return;
     }
     renderer = SDL_CreateRenderer(window, -1, 0);
     if (!renderer) {
-        std::cerr << "Error creating SDL renderer." << std::endl;
+        Logger::Err("Error creating SDL renderer.");
         return;
     }
     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
@@ -70,11 +71,11 @@ void Game::Setup() {
 void Game::Update() {
     // If we are too fast, waste some time until we reach the MILLISECS_PER_FRAME
     int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
-    if(timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
+    if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME) {
         SDL_Delay(timeToWait);
     }
 
-    // The diference in ticks since last frame, converted to seconds.
+    // The difference in ticks since the last frame, converted to seconds
     double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0;
 
     // Store the "previous" frame time
